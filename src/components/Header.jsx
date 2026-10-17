@@ -1,19 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { NavLink, Link } from 'react-router-dom';
-import { Phone, ArrowRight, Heart, Scale } from 'lucide-react';
+import { Phone, ArrowRight } from 'lucide-react';
 import { NOVA_DATA } from '../data/propertiesData';
 
-export default function Header({
-  onOpenMobileMenu,
-  favoritesCount = 0,
-  onOpenFavorites,
-  comparedCount = 0,
-  onOpenCompare,
-  currency = 'AED',
-  onCurrencyChange,
-  unit = 'sqft',
-  onUnitChange
-}) {
+export default function Header({ onOpenMobileMenu }) {
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
@@ -27,7 +17,7 @@ export default function Header({
   return (
     <header className={`site-header ${scrolled ? 'scrolled' : ''}`} id="site-header">
       <div className="container header-inner">
-        {/* Brand Logo: Vertically centered, crisp alignment */}
+        {/* Brand Logo */}
         <Link to="/" className="brand-logo" aria-label="Nova Properties Home">
           <div className="brand-emblem">
             <span className="brand-emblem-text">N</span>
@@ -38,7 +28,7 @@ export default function Header({
           </div>
         </Link>
 
-        {/* Primary Desktop Navigation: Strictly single line, perfectly aligned */}
+        {/* Primary Desktop Navigation: Strictly single-line, perfectly centered */}
         <nav className="main-nav" aria-label="Primary Navigation">
           <NavLink
             to="/"
@@ -91,80 +81,18 @@ export default function Header({
           </NavLink>
         </nav>
 
-        {/* Action cluster: Currency & Unit pills, Shortlist, Compare, VIP Desk, Enquire */}
+        {/* Action cluster: Clean & uncluttered VIP Desk + Enquire */}
         <div className="header-actions">
-          {/* Currency Switcher in Header */}
-          {onCurrencyChange && (
-            <div className="header-select-pill hide-small-screen" title="Display Currency">
-              <select
-                value={currency}
-                onChange={(e) => onCurrencyChange(e.target.value)}
-                aria-label="Currency"
-              >
-                {Object.entries(NOVA_DATA.currencies).map(([code, cur]) => (
-                  <option key={code} value={code}>
-                    {code} ({cur.symbol})
-                  </option>
-                ))}
-              </select>
-            </div>
-          )}
-
-          {/* Unit Switcher in Header */}
-          {onUnitChange && (
-            <div className="header-select-pill hide-small-screen" title="Measurement Unit">
-              <select
-                value={unit}
-                onChange={(e) => onUnitChange(e.target.value)}
-                aria-label="Measurement Unit"
-              >
-                <option value="sqft">SQFT</option>
-                <option value="sqm">SQM</option>
-              </select>
-            </div>
-          )}
-
-          {/* Quick Shortlist Trigger */}
-          <button
-            type="button"
-            className="header-icon-action"
-            onClick={onOpenFavorites}
-            title="View Shortlisted Residences"
-            aria-label={`View Shortlist (${favoritesCount} saved)`}
-          >
-            <Heart size={16} className={favoritesCount > 0 ? 'gold-active filled' : ''} />
-            {favoritesCount > 0 && (
-              <span className="header-badge-count">{favoritesCount}</span>
-            )}
-          </button>
-
-          {/* Quick Compare Trigger */}
-          {comparedCount > 0 && (
-            <button
-              type="button"
-              className="header-icon-action"
-              onClick={onOpenCompare}
-              title="View Residence Comparison"
-              aria-label={`Compare Residences (${comparedCount} selected)`}
-            >
-              <Scale size={16} className="gold-active" />
-              <span className="header-badge-count">{comparedCount}</span>
-            </button>
-          )}
-
-          {/* VIP Desk Phone Action */}
           <a href={`tel:${NOVA_DATA.brand.mobileClean}`} className="header-phone hide-tablet">
             <Phone size={13} style={{ color: 'var(--gold)' }} />
             <span>VIP Desk</span>
           </a>
 
-          {/* Enquire CTA */}
           <Link to="/contact" className="btn btn-gold btn-header-cta">
             <span>Enquire</span>
             <ArrowRight size={13} />
           </Link>
 
-          {/* Mobile menu hamburger button */}
           <button
             className="mobile-menu-btn"
             id="mobile-menu-btn"

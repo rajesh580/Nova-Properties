@@ -2,7 +2,6 @@ import React from 'react';
 import Hero from '../components/Hero';
 import MarketTicker from '../components/MarketTicker';
 import StatsStrip from '../components/StatsStrip';
-import ArchitecturalModel3D from '../components/ArchitecturalModel3D';
 import PropertyListings from '../components/PropertyListings';
 import OffPlanSection from '../components/OffPlanSection';
 import DeveloperAlliance from '../components/DeveloperAlliance';
@@ -43,10 +42,7 @@ export default function HomePage({
       {/* 3. Key Performance Metrics */}
       <StatsStrip />
 
-      {/* 4. Interactive 3D Animated Architectural Model */}
-      <ArchitecturalModel3D onShowNotice={onShowNotice} />
-
-      {/* 5. Curated Luxury Listings */}
+      {/* 4. Curated Luxury Listings */}
       <PropertyListings
         currency={currency}
         unit={unit}

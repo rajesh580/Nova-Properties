@@ -52,11 +52,8 @@ export default function Hero({ activeTab, onTabChange, onSearchSubmit }) {
             <span>Explore Luxury Listings</span>
             <ArrowRight size={14} />
           </a>
-          <a href="#3d-model" className="btn btn-outline">
-            <span>3D Tower Model</span>
-          </a>
-          <a href="#off-plan" className="btn btn-outline hide-mobile">
-            <span>Off-Plan Launches</span>
+          <a href="#off-plan" className="btn btn-outline">
+            <span>View Off-Plan Launches</span>
           </a>
         </div>
 

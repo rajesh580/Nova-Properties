@@ -135,17 +135,9 @@ export default function App() {
     <Router>
       <ScrollToTop />
       <div className="nova-luxury-app">
-        {/* Sticky Glassmorphism Header with Route Navigation, Currency & Unit Tools */}
+        {/* Sticky Glassmorphism Header with Clean Route Navigation */}
         <Header
           onOpenMobileMenu={() => setMobileMenuOpen(true)}
-          favoritesCount={favorites.length}
-          onOpenFavorites={() => setIsFavoritesOpen(true)}
-          comparedCount={comparedIds.length}
-          onOpenCompare={() => setIsCompareModalOpen(true)}
-          currency={currency}
-          onCurrencyChange={setCurrency}
-          unit={unit}
-          onUnitChange={setUnit}
         />
 
         {/* 3. Mobile Navigation Drawer */}
