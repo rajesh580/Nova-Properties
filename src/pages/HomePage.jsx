@@ -23,9 +23,7 @@ export default function HomePage({
   onShowNotice,
   onSelectCommunity,
   favorites = [],
-  onToggleFavorite,
-  comparedIds = [],
-  onToggleCompare
+  onToggleFavorite
 }) {
   return (
     <div className="home-page-view">
@@ -52,8 +50,6 @@ export default function HomePage({
         onResetFilters={onResetFilters}
         favorites={favorites}
         onToggleFavorite={onToggleFavorite}
-        comparedIds={comparedIds}
-        onToggleCompare={onToggleCompare}
       />
 
       {/* 5. Signature Off-Plan Allocations */}

@@ -10,9 +10,7 @@ export default function ResidentialPage({
   unit,
   onOpenModal,
   favorites = [],
-  onToggleFavorite,
-  comparedIds = [],
-  onToggleCompare
+  onToggleFavorite
 }) {
   const [activeTab, setActiveTab] = useState('buy');
   const [searchParams, setSearchParams] = useState({
@@ -61,8 +59,6 @@ export default function ResidentialPage({
         onResetFilters={handleResetFilters}
         favorites={favorites}
         onToggleFavorite={onToggleFavorite}
-        comparedIds={comparedIds}
-        onToggleCompare={onToggleCompare}
       />
 
       {/* 3. International Buyer & Golden Visa Advisory Strip */}

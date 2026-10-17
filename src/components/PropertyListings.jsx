@@ -1,6 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import {
-  MapPin, Bed, Bath, Maximize, MessageCircle, Heart, Scale,
+  MapPin, Bed, Bath, Maximize, MessageCircle, Heart,
   Search, SlidersHorizontal, LayoutGrid, List, Check, X, ArrowRight, ShieldCheck
 } from 'lucide-react';
 import { NOVA_DATA } from '../data/propertiesData';
@@ -13,9 +13,7 @@ export default function PropertyListings({
   onOpenModal,
   onResetFilters,
   favorites = [],
-  onToggleFavorite,
-  comparedIds = [],
-  onToggleCompare
+  onToggleFavorite
 }) {
   const [activeFilter, setActiveFilter] = useState('all');
   const [keyword, setKeyword] = useState('');
@@ -290,7 +288,6 @@ export default function PropertyListings({
           <div className="properties-grid">
             {filteredList.map((prop) => {
               const isFav = favorites.includes(prop.id);
-              const isComp = comparedIds.includes(prop.id);
               const waMsg = encodeURIComponent(
                 `Hello Nova Properties, I am interested in viewing ${prop.title} (${prop.location}) ref ${prop.id}. Please send more information.`
               );
@@ -312,7 +309,7 @@ export default function PropertyListings({
                       <span className="badge-status">{prop.status}</span>
                     </div>
 
-                    {/* Card Floating Quick Actions (Heart & Compare) */}
+                    {/* Card Floating Quick Actions (Shortlist) */}
                     <div className="card-quick-actions">
                       {onToggleFavorite && (
                         <button
@@ -326,21 +323,6 @@ export default function PropertyListings({
                           aria-label={`Shortlist ${prop.title}`}
                         >
                           <Heart size={14} className={isFav ? 'filled-heart' : ''} />
-                        </button>
-                      )}
-
-                      {onToggleCompare && (
-                        <button
-                          type="button"
-                          className={`card-tool-btn compare-btn ${isComp ? 'active' : ''}`}
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            onToggleCompare(prop.id);
-                          }}
-                          title={isComp ? 'Remove from comparison' : 'Compare property'}
-                          aria-label={`Compare ${prop.title}`}
-                        >
-                          <Scale size={14} />
                         </button>
                       )}
                     </div>
@@ -422,7 +404,6 @@ export default function PropertyListings({
           <div className="properties-list-editorial">
             {filteredList.map((prop) => {
               const isFav = favorites.includes(prop.id);
-              const isComp = comparedIds.includes(prop.id);
               const waMsg = encodeURIComponent(
                 `Hello Nova Properties, I am interested in viewing ${prop.title} (${prop.location}) ref ${prop.id}. Please send more information.`
               );
@@ -514,17 +495,6 @@ export default function PropertyListings({
                             title={isFav ? 'Remove from shortlist' : 'Add to shortlist'}
                           >
                             <Heart size={15} className={isFav ? 'filled-heart' : ''} />
-                          </button>
-                        )}
-
-                        {onToggleCompare && (
-                          <button
-                            type="button"
-                            className={`tool-btn-icon ${isComp ? 'active' : ''}`}
-                            onClick={() => onToggleCompare(prop.id)}
-                            title={isComp ? 'Remove from comparison' : 'Compare property'}
-                          >
-                            <Scale size={15} />
                           </button>
                         )}
 

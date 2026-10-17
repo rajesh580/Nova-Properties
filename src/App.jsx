@@ -7,9 +7,6 @@ import Footer from './components/Footer';
 import PropertyModal from './components/PropertyModal';
 import FloatingActions from './components/FloatingActions';
 import FavoritesDrawer from './components/FavoritesDrawer';
-import CompareDock from './components/CompareDock';
-import CompareModal from './components/CompareModal';
-
 // Page Views for Each Navbar Item
 import HomePage from './pages/HomePage';
 import ResidentialPage from './pages/ResidentialPage';
@@ -39,16 +36,13 @@ export default function App() {
   const [favorites, setFavorites] = useState(() => {
     try {
       const saved = localStorage.getItem('nova_favorites');
-      return saved ? JSON.parse(saved) : ['NP-1001', 'NP-1002'];
+      return saved ? JSON.parse(saved) : [];
     } catch {
-      return ['NP-1001', 'NP-1002'];
+      return [];
     }
   });
 
-  // Comparison State
-  const [comparedIds, setComparedIds] = useState(['NP-1001', 'NP-1003']);
   const [isFavoritesOpen, setIsFavoritesOpen] = useState(false);
-  const [isCompareModalOpen, setIsCompareModalOpen] = useState(false);
 
   // Sync favorites with localStorage
   useEffect(() => {
@@ -86,34 +80,6 @@ export default function App() {
     handleShowNotice('All residences cleared from shortlist');
   };
 
-  const handleToggleCompare = (propId) => {
-    const prop = NOVA_DATA.properties.find(p => p.id === propId);
-    const title = prop ? prop.title : propId;
-
-    setComparedIds((prev) => {
-      if (prev.includes(propId)) {
-        handleShowNotice(`Removed "${title}" from comparison tray`);
-        return prev.filter(id => id !== propId);
-      } else {
-        if (prev.length >= 4) {
-          handleShowNotice('Maximum 4 residences can be compared simultaneously');
-          return prev;
-        }
-        handleShowNotice(`Added "${title}" to comparison tray`);
-        return [...prev, propId];
-      }
-    });
-  };
-
-  const handleRemoveCompare = (propId) => {
-    setComparedIds(prev => prev.filter(id => id !== propId));
-  };
-
-  const handleClearCompare = () => {
-    setComparedIds([]);
-    handleShowNotice('Comparison tray reset');
-  };
-
   const handleSearchSubmit = (params) => {
     setSearchParams(params);
   };
@@ -146,8 +112,6 @@ export default function App() {
           onClose={() => setMobileMenuOpen(false)}
           favoritesCount={favorites.length}
           onOpenFavorites={() => setIsFavoritesOpen(true)}
-          comparedCount={comparedIds.length}
-          onOpenCompare={() => setIsCompareModalOpen(true)}
         />
 
         {/* 4. Main Multi-Page Routed Views */}
@@ -169,8 +133,6 @@ export default function App() {
                   onSelectCommunity={handleSelectCommunity}
                   favorites={favorites}
                   onToggleFavorite={handleToggleFavorite}
-                  comparedIds={comparedIds}
-                  onToggleCompare={handleToggleCompare}
                 />
               }
             />
@@ -184,8 +146,6 @@ export default function App() {
                   onOpenModal={setSelectedProperty}
                   favorites={favorites}
                   onToggleFavorite={handleToggleFavorite}
-                  comparedIds={comparedIds}
-                  onToggleCompare={handleToggleCompare}
                 />
               }
             />
@@ -260,8 +220,6 @@ export default function App() {
             onShowNotice={handleShowNotice}
             isFavorite={favorites.includes(selectedProperty.id)}
             onToggleFavorite={handleToggleFavorite}
-            isCompared={comparedIds.includes(selectedProperty.id)}
-            onToggleCompare={handleToggleCompare}
           />
         )}
 
@@ -274,25 +232,6 @@ export default function App() {
           onClearFavorites={handleClearFavorites}
           onSelectProperty={setSelectedProperty}
           currency={currency}
-        />
-
-        {/* 8. Floating Comparison Dock */}
-        <CompareDock
-          comparedIds={comparedIds}
-          onRemoveCompare={handleRemoveCompare}
-          onClearCompare={handleClearCompare}
-          onOpenModal={() => setIsCompareModalOpen(true)}
-        />
-
-        {/* 9. Full Side-by-Side Comparison Modal */}
-        <CompareModal
-          isOpen={isCompareModalOpen}
-          onClose={() => setIsCompareModalOpen(false)}
-          comparedIds={comparedIds}
-          onRemoveCompare={handleRemoveCompare}
-          onSelectProperty={setSelectedProperty}
-          currency={currency}
-          unit={unit}
         />
 
         {/* 10. Floating WhatsApp Widget, Scroll-to-Top & Toast Alerts */}

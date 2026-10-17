@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import {
-  X, Check, Heart, Scale, Calendar, Clock, Car, Share2,
+  X, Check, Heart, Calendar, Clock, Car, Share2,
   ChevronLeft, ChevronRight, Maximize2, ShieldCheck,
   TrendingUp, Compass, ArrowRight, MessageCircle, FileText
 } from 'lucide-react';
@@ -13,9 +13,7 @@ export default function PropertyModal({
   onClose,
   onShowNotice,
   isFavorite = false,
-  onToggleFavorite,
-  isCompared = false,
-  onToggleCompare
+  onToggleFavorite
 }) {
   const [activeTab, setActiveTab] = useState('overview');
   const [activeImgIndex, setActiveImgIndex] = useState(0);
@@ -127,20 +125,6 @@ export default function PropertyModal({
                 >
                   <Heart size={15} className={isFavorite ? 'filled-heart' : ''} />
                   <span className="hide-mobile">{isFavorite ? 'Shortlisted' : 'Shortlist'}</span>
-                </button>
-              )}
-
-              {/* Compare Button */}
-              {onToggleCompare && (
-                <button
-                  type="button"
-                  className={`modal-tool-btn ${isCompared ? 'active-compare' : ''}`}
-                  onClick={() => onToggleCompare(property.id)}
-                  title={isCompared ? 'Remove from comparison' : 'Add to comparison'}
-                  aria-label="Toggle compare"
-                >
-                  <Scale size={15} />
-                  <span className="hide-mobile">{isCompared ? 'Comparing' : 'Compare'}</span>
                 </button>
               )}
 

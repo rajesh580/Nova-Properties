@@ -1,15 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { X, Heart, Scale } from 'lucide-react';
+import { X, Heart } from 'lucide-react';
 import { NOVA_DATA } from '../data/propertiesData';
 
 export default function MobileDrawer({
   isOpen,
   onClose,
   favoritesCount = 0,
-  onOpenFavorites,
-  comparedCount = 0,
-  onOpenCompare
+  onOpenFavorites
 }) {
   const handleLinkClick = () => {
     onClose();
@@ -39,18 +37,6 @@ export default function MobileDrawer({
         >
           <Heart size={16} className={favoritesCount > 0 ? 'gold-active filled' : ''} />
           <span>Shortlist ({favoritesCount})</span>
-        </button>
-
-        <button
-          type="button"
-          className="mobile-shortcut-btn"
-          onClick={() => {
-            onClose();
-            onOpenCompare?.();
-          }}
-        >
-          <Scale size={16} className={comparedCount > 0 ? 'gold-active' : ''} />
-          <span>Compare ({comparedCount})</span>
         </button>
       </div>
 
